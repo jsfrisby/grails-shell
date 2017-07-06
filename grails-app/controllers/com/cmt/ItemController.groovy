@@ -4,8 +4,12 @@ class ItemController {
 
     def index() { }
 
-    def create() {
+    def list() {
 
+    }
+
+    def create() {
+//        [item: new Item(params)]
     }
 
     def update() {
@@ -13,6 +17,14 @@ class ItemController {
     }
 
     def delete() {
+
+    }
+
+    def show() {
+
+    }
+
+    def edit() {
 
     }
 }

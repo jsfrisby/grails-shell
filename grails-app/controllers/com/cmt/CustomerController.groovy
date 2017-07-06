@@ -4,12 +4,19 @@ class CustomerController {
 
     def index() {
 //        render "This is the customer page."
-        def customer = new Customer(name: 'TestName', address: 'testAddress', city: 'Tempe', state: 'AZ', zip: '85283', phoneNum: '6235555555', birthdate: Date(1980-01-01))
+        def customer = new Customer(name: 'TestName', address: 'testAddress', city: 'Tempe', state: 'AZ', zip: '85283', phoneNum: '6235555555', birthdate: new Date())
         [customer: customer]
+//        customer.save()
     }
 
-    def create() {
+//    def list(Integer max) {
+////        params.max = Math.min(max ?:10, 100)
+////        [customerInstanceList: Customer.list(params), customerInstanceTotal: Customer.count()]
+//    }
 
+    def create() {
+//        def customer = new Customer(name: 'TestName', address: 'testAddress', city: 'Tempe', state: 'AZ', zip: '85283', phoneNum: '6235555555', birthdate: new Date())
+//        customer.save()
     }
 
     def update() {

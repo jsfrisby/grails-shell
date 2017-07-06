@@ -3,6 +3,46 @@
     <head>
         <meta name="layout" content="main"/>
         <title>Grails Shell</title>
+        <script type="text/javascript">
+            function listOrders() {
+                alert("listOrders()");
+            }
+
+            function listCustomers() {
+                alert("listCustomers()");
+            }
+        </script>
+
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script>
+            //            $("#listOrders").ready(function () {
+            //                listOrders();
+            //            });
+
+            $(function () {
+                $.ajax({
+                    url: "",
+                    //url: "${createLink(controller:'indy',action:'updateMiniDash')}",
+                    type: "post",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        $("#listOrders").text("List of Orders:");
+                        listOrders();
+
+                        $("#listCustomers").text("List of Customers:");
+                        listCustomers();
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            });
+
+            //            $(function() {
+            //                $('div[onload]').trigger('onload');
+            //            });
+        </script>
     </head>
     <body>
         <div class="row">
@@ -88,6 +128,18 @@
                                 <p><em>There aren't any controllers yet.</em></p>
                             </g:else>
                         </div>
+                    </div>
+                </div>
+
+                <div id="mini-dash" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Mini Dashboard</h2>
+                    </div>
+                    <div class="panel-body">
+                        %{--List of Orders:<br />--}%
+                        <div id="listOrders"></div>
+                        %{--List of Customers:<br />--}%
+                        <div id="listCustomers"></div>
                     </div>
                 </div>
             </div>
