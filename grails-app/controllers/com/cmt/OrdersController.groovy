@@ -1,6 +1,6 @@
 package com.cmt
 
-class OrderController {
+class OrdersController {
 
     def index() { }
 

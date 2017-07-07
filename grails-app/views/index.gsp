@@ -22,7 +22,7 @@
             $(function () {
                 $.ajax({
                     url: "",
-                    //url: "${createLink(controller:'indy',action:'updateMiniDash')}",
+                    //url: "${createLink(controller:'/',action:'updateMiniDash')}",
                     type: "post",
                     dataType: 'json',
                     success: function(data) {
@@ -34,7 +34,7 @@
                         listCustomers();
                     },
                     error: function (err) {
-                        alert(err.responseText);
+                        alert("Error: " + err.responseText);
                     }
                 });
             });

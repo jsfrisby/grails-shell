@@ -1,11 +1,17 @@
 package com.cmt
 
-class IndyController {
+import grails.converters.JSON
+//import Orders
+//import Customers
 
-    def index() { }
+class IndexController {
+
+    def index() {
+        redirect(uri: "/")
+    }
 
     def updateMiniDashOrders() {
-        def result = Order.get(params.id)
+        def result = Orders.get(params.id)
         render result as JSON
     }
 
