@@ -5,7 +5,7 @@ class StoreController {
     def index() { }
 
     def create() {
-
+        respond new Store(params)
     }
 
     def update() {
