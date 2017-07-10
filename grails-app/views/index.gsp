@@ -1,47 +1,104 @@
+<%@ page import="grails.converters.JSON" %>
 <!doctype html>
 <html>
     <head>
         <meta name="layout" content="main"/>
         <title>Grails Shell</title>
+        <g:javascript library="jquery"/>
         <script type="text/javascript">
             function listOrders() {
                 alert("listOrders()");
             }
 
             function listCustomers() {
-                alert("listCustomers()");
+//                alert("listCustomers()");
+            }
+
+            function listItems() {
+//                alert("listItems()");
             }
         </script>
 
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script>
+            function loadMiniDash() {
+                // http://docs.grails.org/2.4.4/ref/Tags/remoteFunction.html
+                // oh yay
+                // https://stackoverflow.com/questions/36668645/springboot-gsp-tag-form-does-not-exist-no-tag-library-found-for-namespace
+                %{--<g:link controller="index" action="updateMiniDashItems" update="listItems"/>--}%
+                %{--document.getElementById("listItems").innerHTML = <f:table collection="itemsList" domainClass="com.cmt.Items"/>;--}%
+            }
+
             //            $("#listOrders").ready(function () {
             //                listOrders();
             //            });
 
             $(function () {
                 $.ajax({
-                    url: "",
-                    //url: "${createLink(controller:'/',action:'updateMiniDash')}",
-                    type: "post",
+                    url: "${createLink(controller:'customers',action:'updateMiniDashCustomers')}",
+                    type: "get",
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
-                        $("#listOrders").text("List of Orders:");
-                        listOrders();
+//                        $("#listOrders").text("List of Orders:");
+//                        listOrders();
 
                         $("#listCustomers").text("List of Customers:");
                         listCustomers();
+
+                        $.each(data, function (index, values) {
+//                            alert( index + ": " + values);
+                            document.getElementById("listCustomers").innerHTML += "<br />";
+                            $.each(values, function (key, value) {
+//                               alert( key + ": " + value);
+                                document.getElementById("listCustomers").innerHTML += key + ": " + value + "<br />";
+                            });
+                            document.getElementById("listCustomers").innerHTML += "<br />";
+                        });
+
+//                        $("#listItems").text("List of Items:");
+//                        listItems();
                     },
                     error: function (err) {
                         alert("Error: " + err.responseText);
                     }
                 });
+
+                $.ajax({
+                    url: "${g.createLink(controller:'items',action:'updateMiniDashItems')}",
+                    type: "get",
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        $("#listItems").text("List of Items:");
+                        listItems();
+//                        alert(data);
+                        $.each(data, function (index, values) {
+//                            alert( index + ": " + values);
+                            document.getElementById("listItems").innerHTML += "<br />";
+                            $.each(values, function (key, value) {
+//                               alert( key + ": " + value);
+                                document.getElementById("listItems").innerHTML += key + ": " + value + "<br />";
+                            });
+                        });
+//                        alert($.parseJSON(data));
+//                        document.getElementById("listItems").innerHTML = $.parseJSON(JSON.stringify(data)).each(function () {
+//                           alert(this.desc);
+//                        });
+                        //for (item in data) { document.write(data[item].desc + "<br />"); };
+                            %{--<g:each var="item" in="${data)}">${item.catNum}, ${item.desc}, ${item.price}</g:each>;--}%
+                    },
+                    error: function (err) {
+                        alert("Error: " + err.responseText);
+                    }
+                })
             });
 
             //            $(function() {
             //                $('div[onload]').trigger('onload');
             //            });
+
+            loadMiniDash();
         </script>
     </head>
     <body>
@@ -140,6 +197,7 @@
                         <div id="listOrders"></div>
                         %{--List of Customers:<br />--}%
                         <div id="listCustomers"></div>
+                        <div id="listItems"></div>
                     </div>
                 </div>
             </div>

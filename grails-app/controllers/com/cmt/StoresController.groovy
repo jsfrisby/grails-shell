@@ -4,91 +4,91 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class OrdersController {
+class StoresController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Orders.list(params), model:[ordersCount: Orders.count()]
+        respond Stores.list(params), model:[storesCount: Stores.count()]
     }
 
-    def show(Orders orders) {
-        respond orders
+    def show(Stores stores) {
+        respond stores
     }
 
     def create() {
-        respond new Orders(params)
+        respond new Stores(params)
     }
 
     @Transactional
-    def save(Orders orders) {
-        if (orders == null) {
+    def save(Stores stores) {
+        if (stores == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        if (orders.hasErrors()) {
+        if (stores.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond orders.errors, view:'create'
+            respond stores.errors, view:'create'
             return
         }
 
-        orders.save flush:true
+        stores.save flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'orders.label', default: 'Orders'), orders.id])
-                redirect orders
+                flash.message = message(code: 'default.created.message', args: [message(code: 'stores.label', default: 'Stores'), stores.id])
+                redirect stores
             }
-            '*' { respond orders, [status: CREATED] }
+            '*' { respond stores, [status: CREATED] }
         }
     }
 
-    def edit(Orders orders) {
-        respond orders
+    def edit(Stores stores) {
+        respond stores
     }
 
     @Transactional
-    def update(Orders orders) {
-        if (orders == null) {
+    def update(Stores stores) {
+        if (stores == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        if (orders.hasErrors()) {
+        if (stores.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond orders.errors, view:'edit'
+            respond stores.errors, view:'edit'
             return
         }
 
-        orders.save flush:true
+        stores.save flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'orders.label', default: 'Orders'), orders.id])
-                redirect orders
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'stores.label', default: 'Stores'), stores.id])
+                redirect stores
             }
-            '*'{ respond orders, [status: OK] }
+            '*'{ respond stores, [status: OK] }
         }
     }
 
     @Transactional
-    def delete(Orders orders) {
+    def delete(Stores stores) {
 
-        if (orders == null) {
+        if (stores == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        orders.delete flush:true
+        stores.delete flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'orders.label', default: 'Orders'), orders.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'stores.label', default: 'Stores'), stores.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -98,7 +98,7 @@ class OrdersController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'orders.label', default: 'Orders'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'stores.label', default: 'Stores'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

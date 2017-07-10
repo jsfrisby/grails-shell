@@ -11,6 +11,6 @@ public class Items {
     static constraints = {
         // catNum probably has some associated length
         // desc might have a length requirement
-        price(min: 0.0)
+//        price(min: 0.0)
     }
 }

@@ -3,7 +3,7 @@ package com.cmt
 /**
  * Created by Josh on 6/28/17.
  */
-class Orders {
+class Order {
     Date created;
     String storeUsed;
     String customerName;
