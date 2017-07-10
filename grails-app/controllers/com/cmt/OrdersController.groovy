@@ -1,5 +1,7 @@
 package com.cmt
 
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -103,5 +105,10 @@ class OrdersController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+    def updateMiniDashOrders(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        render Items.list(params) as JSON
     }
 }

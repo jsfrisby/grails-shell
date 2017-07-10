@@ -91,8 +91,40 @@
                     error: function (err) {
                         alert("Error: " + err.responseText);
                     }
-                })
+                });
+
+                $.ajax({
+                    url: "${createLink(controller:'orders',action:'updateMiniDashOrders')}",
+                    type: "get",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        $("#listOrders").text("List of Orders:");
+//                        listOrders();
+
+//                    $("#listCustomers").text("List of Customers:");
+//                    listCustomers();
+
+                        $.each(data, function (index, values) {
+//                            alert( index + ": " + values);
+                            document.getElementById("listOrders").innerHTML += "<br />";
+                            $.each(values, function (key, value) {
+//                               alert( key + ": " + value);
+                                document.getElementById("listOrders").innerHTML += key + ": " + value + "<br />";
+                            });
+                            document.getElementById("listOrders").innerHTML += "<br />";
+                        });
+
+//                        $("#listItems").text("List of Items:");
+//                        listItems();
+                    },
+                    error: function (err) {
+                        alert("Error: " + err.responseText);
+                    }
+                });
             });
+
+
 
             //            $(function() {
             //                $('div[onload]').trigger('onload');

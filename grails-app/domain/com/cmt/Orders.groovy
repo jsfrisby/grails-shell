@@ -6,7 +6,7 @@ class Orders {
     String customerName;
 
     static constraints = {
-        storeUsed(matches: "a-zA-Z]+")
-        customerName(matches: "a-zA-Z ,.]+")
+        storeUsed(matches: "[a-zA-Z]+")
+        customerName(matches: "[a-zA-Z ,.]+")
     }
 }
